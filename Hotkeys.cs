@@ -1,5 +1,5 @@
 ﻿using System.Runtime.InteropServices;
-
+//Manuel A Nunes™
 namespace ScreenShotter
 {
     public class KeyboardHook : IDisposable

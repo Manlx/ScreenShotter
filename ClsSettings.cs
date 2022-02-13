@@ -1,10 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Imaging;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿//Manuel A Nunes™
 namespace ScreenShotter
 {
     [Serializable]
@@ -13,12 +7,14 @@ namespace ScreenShotter
         public string FilePath = "";
         public string FileName = "";
         public int FileType;
+        public bool CapMouse = false;
         public ClsSettings(){}
-        public ClsSettings(string Path, string Name,int FileType)
+        public ClsSettings(string Path, string Name,int FileType,bool CapMouse)
         {
             FilePath = Path;
             FileName = Name;
-            this.FileType = FileType;  
+            this.FileType = FileType;
+            this.CapMouse = CapMouse;
         }
     }
 }

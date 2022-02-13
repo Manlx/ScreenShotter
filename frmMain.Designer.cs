@@ -35,32 +35,42 @@
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
             this.cmbFileFormat = new System.Windows.Forms.ComboBox();
+            this.chkSnipMouseScreen = new System.Windows.Forms.CheckBox();
             this.SuspendLayout();
             // 
             // btnMain
             // 
+            this.btnMain.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.btnMain.FlatAppearance.BorderSize = 0;
+            this.btnMain.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnMain.Location = new System.Drawing.Point(4, 5);
             this.btnMain.Margin = new System.Windows.Forms.Padding(5);
             this.btnMain.Name = "btnMain";
             this.btnMain.Size = new System.Drawing.Size(258, 92);
             this.btnMain.TabIndex = 0;
             this.btnMain.Text = "Screenshot";
-            this.btnMain.UseVisualStyleBackColor = true;
+            this.btnMain.UseVisualStyleBackColor = false;
             this.btnMain.Click += new System.EventHandler(this.btnMain_Click);
             // 
             // btnChooseOutputPath
             // 
+            this.btnChooseOutputPath.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.btnChooseOutputPath.FlatAppearance.BorderSize = 0;
+            this.btnChooseOutputPath.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.btnChooseOutputPath.Location = new System.Drawing.Point(4, 101);
             this.btnChooseOutputPath.Margin = new System.Windows.Forms.Padding(5);
             this.btnChooseOutputPath.Name = "btnChooseOutputPath";
             this.btnChooseOutputPath.Size = new System.Drawing.Size(258, 33);
             this.btnChooseOutputPath.TabIndex = 1;
             this.btnChooseOutputPath.Text = "File Out";
-            this.btnChooseOutputPath.UseVisualStyleBackColor = true;
+            this.btnChooseOutputPath.UseVisualStyleBackColor = false;
             this.btnChooseOutputPath.Click += new System.EventHandler(this.btnChooseOutputPath_Click);
             // 
             // edtName
             // 
+            this.edtName.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.edtName.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.edtName.ForeColor = System.Drawing.Color.Transparent;
             this.edtName.Location = new System.Drawing.Point(85, 138);
             this.edtName.Name = "edtName";
             this.edtName.Size = new System.Drawing.Size(177, 30);
@@ -95,6 +105,9 @@
             // 
             // cmbFileFormat
             // 
+            this.cmbFileFormat.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(23)))), ((int)(((byte)(23)))), ((int)(((byte)(23)))));
+            this.cmbFileFormat.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
+            this.cmbFileFormat.ForeColor = System.Drawing.Color.Transparent;
             this.cmbFileFormat.FormattingEnabled = true;
             this.cmbFileFormat.Items.AddRange(new object[] {
             "PNG",
@@ -105,11 +118,25 @@
             this.cmbFileFormat.Size = new System.Drawing.Size(177, 31);
             this.cmbFileFormat.TabIndex = 6;
             // 
+            // chkSnipMouseScreen
+            // 
+            this.chkSnipMouseScreen.AutoSize = true;
+            this.chkSnipMouseScreen.CheckAlign = System.Drawing.ContentAlignment.MiddleRight;
+            this.chkSnipMouseScreen.Location = new System.Drawing.Point(4, 211);
+            this.chkSnipMouseScreen.Name = "chkSnipMouseScreen";
+            this.chkSnipMouseScreen.Size = new System.Drawing.Size(191, 27);
+            this.chkSnipMouseScreen.TabIndex = 7;
+            this.chkSnipMouseScreen.Text = "Snip Mouse Screen";
+            this.chkSnipMouseScreen.UseVisualStyleBackColor = true;
+            this.chkSnipMouseScreen.CheckedChanged += new System.EventHandler(this.chkSnipMouseScreen_CheckedChanged);
+            // 
             // frmMain
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(11F, 23F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(266, 216);
+            this.BackColor = System.Drawing.SystemColors.ActiveCaptionText;
+            this.ClientSize = new System.Drawing.Size(266, 245);
+            this.Controls.Add(this.chkSnipMouseScreen);
             this.Controls.Add(this.cmbFileFormat);
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
@@ -118,13 +145,14 @@
             this.Controls.Add(this.btnChooseOutputPath);
             this.Controls.Add(this.btnMain);
             this.Font = new System.Drawing.Font("Roboto", 14.25F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point);
+            this.ForeColor = System.Drawing.Color.Transparent;
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
             this.Margin = new System.Windows.Forms.Padding(5);
             this.MaximizeBox = false;
             this.MinimizeBox = false;
             this.Name = "frmMain";
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
-            this.Text = "Screen Shotter";
+            this.Text = "Screen Shot - Manuel Nunes™";
             this.FormClosing += new System.Windows.Forms.FormClosingEventHandler(this.frmMain_FormClosing);
             this.ResumeLayout(false);
             this.PerformLayout();
@@ -140,5 +168,6 @@
         private Label label1;
         private Label label2;
         private ComboBox cmbFileFormat;
+        private CheckBox chkSnipMouseScreen;
     }
 }

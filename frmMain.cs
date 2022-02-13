@@ -1,6 +1,6 @@
 using SerializerUtil;
 using System.Drawing.Imaging;
-
+//Manuel A Nunes™
 namespace ScreenShotter
 {
     public partial class frmMain : Form
@@ -23,6 +23,7 @@ namespace ScreenShotter
             cmbFileFormat.SelectedIndex = mySettings.FileType;
             hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
             hook.RegisterHotKey(ScreenShotter.ModifierKeys.Shift,Keys.PrintScreen);
+            chkSnipMouseScreen.Checked = mySettings.CapMouse;
         }
         private void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -37,10 +38,19 @@ namespace ScreenShotter
             }
             serializer.Serialize(mySettings);
         }
+        private int IndexOfPrime()
+        {
+            int i = 0;
+            while (!Screen.AllScreens[i].Primary)
+                i++;
+            return i;
+        }
         private ImageFormat[] Files = new ImageFormat[] {ImageFormat.Png,ImageFormat.Bmp,ImageFormat.Jpeg};
         private void btnMain_Click(object sender, EventArgs e)
         {
-            int iScreen = ConvertMousePointToScreenIndex(System.Windows.Forms.Cursor.Position); 
+            int iScreen = ConvertMousePointToScreenIndex(System.Windows.Forms.Cursor.Position);
+            if (!chkSnipMouseScreen.Checked)
+                iScreen = IndexOfPrime();
             mySettings.FileName = edtName.Text;
             mySettings.FileType = cmbFileFormat.SelectedIndex;
             Bitmap bitmap = new Bitmap
@@ -77,6 +87,7 @@ namespace ScreenShotter
         {
             mySettings.FileName = edtName.Text;
             mySettings.FileType = cmbFileFormat.SelectedIndex;
+            mySettings.CapMouse = chkSnipMouseScreen.Checked;
             serializer.Serialize(mySettings);
             hook.Dispose();
         }
@@ -92,6 +103,11 @@ namespace ScreenShotter
                     return i - 1;
             }
             return 0;
+        }
+
+        private void chkSnipMouseScreen_CheckedChanged(object sender, EventArgs e)
+        {
+            mySettings.CapMouse = chkSnipMouseScreen.Checked;
         }
     }
 }
