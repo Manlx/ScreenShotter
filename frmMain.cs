@@ -21,8 +21,8 @@ namespace ScreenShotter
             edtName.Text = mySettings.FileName;
             lblDebug.Text = mySettings.FilePath;
             cmbFileFormat.SelectedIndex = mySettings.FileType;
-            //hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
-            //hook.RegisterHotKey(ScreenShotter.ModifierKeys.Shift,Keys.F12);
+            hook.KeyPressed += new EventHandler<KeyPressedEventArgs>(hook_KeyPressed);
+            hook.RegisterHotKey(ScreenShotter.ModifierKeys.Shift,Keys.PrintScreen);
         }
         private void hook_KeyPressed(object sender, KeyPressedEventArgs e)
         {
@@ -40,13 +40,18 @@ namespace ScreenShotter
         private ImageFormat[] Files = new ImageFormat[] {ImageFormat.Png,ImageFormat.Bmp,ImageFormat.Jpeg};
         private void btnMain_Click(object sender, EventArgs e)
         {
+            int iScreen = ConvertMousePointToScreenIndex(System.Windows.Forms.Cursor.Position); 
             mySettings.FileName = edtName.Text;
             mySettings.FileType = cmbFileFormat.SelectedIndex;
             Bitmap bitmap = new Bitmap
-            (Screen.PrimaryScreen.Bounds.Width, Screen.PrimaryScreen.Bounds.Height); 
+            (Screen.AllScreens[iScreen].Bounds.Width, Screen.AllScreens[iScreen].Bounds.Height); 
             Graphics graphics = Graphics.FromImage(bitmap as System.Drawing.Image);
-            graphics.CopyFromScreen(0, 0,0,0, bitmap.Size);
+            int y = Screen.AllScreens[iScreen].Bounds.Top;
+            int x = Screen.AllScreens[iScreen].Bounds.Left;
+            graphics.CopyFromScreen(x,y, 0,0, bitmap.Size);
             string OutFile = $"{mySettings.FilePath}\\{mySettings.FileName}.{Files[mySettings.FileType].ToString()}";
+            if (OutFile[0] == '\\')
+                OutFile = OutFile.Substring(1);
             if (File.Exists(OutFile))
                 OutFile = FindFile();
 
@@ -56,11 +61,16 @@ namespace ScreenShotter
         {
             int x = 0;
             string Out = $"{mySettings.FilePath}\\{mySettings.FileName} ({x}).{Files[mySettings.FileType].ToString()}";
+            if (Out[0] == '\\')
+                Out = Out.Substring(1);
             while (File.Exists(Out))
             {
                 x++;
                 Out = $"{mySettings.FilePath}\\{mySettings.FileName} ({x}).{Files[mySettings.FileType].ToString()}";
+                if (Out[0] == '\\')
+                    Out = Out.Substring(1);
             }
+            
             return Out;
         }
         private void frmMain_FormClosing(object sender, FormClosingEventArgs e)
@@ -69,6 +79,19 @@ namespace ScreenShotter
             mySettings.FileType = cmbFileFormat.SelectedIndex;
             serializer.Serialize(mySettings);
             hook.Dispose();
+        }
+        private int ConvertMousePointToScreenIndex(Point mousePoint)
+        {//Thanks overflow
+            //first get all the screens 
+            System.Drawing.Rectangle ret;
+
+            for (int i = 1; i <= Screen.AllScreens.Count(); i++)
+            {
+                ret = Screen.AllScreens[i - 1].Bounds;
+                if (ret.Contains(mousePoint))
+                    return i - 1;
+            }
+            return 0;
         }
     }
 }
